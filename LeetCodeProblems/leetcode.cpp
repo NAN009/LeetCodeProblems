@@ -4,6 +4,7 @@
 #include<sstream>
 #include<time.h>
 #include<stdlib.h>
+#include <set>
 using namespace std;
 //Ë³Ê±ÕëÐý×ª90¶È Rotate Image
 void retate(vector<vector<int> > &matrix)
@@ -763,17 +764,37 @@ void reverseWords(string &s)
 	}
 }
 
+//Number of 1 Bits
+vector<int> binary(32, 0);
+void int2binary(int n)
+{
+	int i = 31;
+	while (n)
+	{
+		binary[i--] = n % 2;
+		n /= 2;
+	}
+}
+int hammingWeight(unsigned int n) 
+{
+	int count = 0;
+	int2binary(n);
+	for (int i = 0; i < 32;++i)
+		if (binary[i] == 1)
+			count++;
+	return count;
+}
+
+//Contains Duplicate
+bool containsDuplicate(vector<int>& nums) 
+{
+	
+	return nums.size()>set<int> (nums.begin(), nums.end()).size();
+}
 int main()
 {
-	//Longest Common Prefix
-	vector<string> strs;
-	string s;
-		
-	//strs.push_back("abcdeg");
-	strs.push_back("aca");
-	strs.push_back("cba");
-	s=longestCommonPrefix(strs);
-	cout << s;
+	int n = 4;
+	cout<<n<<" "<<hammingWeight(n);
 	
 	//Integer to Roman
 	/*int num = 101;
@@ -915,5 +936,6 @@ int main()
 		}
 		cout << endl;
 	}*/
+	system("pause");
 	return 0;
 }
