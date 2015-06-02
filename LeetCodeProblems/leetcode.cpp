@@ -824,13 +824,25 @@ bool isHappy(int n) {
 	}
 	return true;
 }
-//Spiral Matrix
-
+//Rotate Array 
+void rotate(vector<int>& nums, int k) 
+{
+	if (k <=0)return;
+	if (k>nums.size() - 1)
+		k %= nums.size();
+	int len = nums.size() - k;
+	for (int i = 0; i < len; ++i)
+	{
+		nums.push_back(nums[i]);
+	}
+	nums.erase(nums.begin(), nums.begin() + len);
+}
 int main()
 {
-	int n = 1;
-	cout << isHappy(n);
-	
+	vector<int> nums = { 1, 2, 3, 4, 5, 6, 7 };
+	int k = 3;
+	rotate(nums, k);
+	cout<<nums[1];
 	//Integer to Roman
 	/*int num = 101;
 	cout<<intToRoman(num);*/
