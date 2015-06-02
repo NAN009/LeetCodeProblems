@@ -787,14 +787,49 @@ int hammingWeight(unsigned int n)
 
 //Contains Duplicate
 bool containsDuplicate(vector<int>& nums) 
-{
-	
+{	
 	return nums.size()>set<int> (nums.begin(), nums.end()).size();
 }
+//Container With Most Water
+//在距离减小时，只有比本身大的才有可能比本身大
+int maxArea(vector<int>& height) {
+	int left = 0, right = height.size() - 1,area=0;
+	while (left < right)
+	{
+		area = max(area, (right - left)*min(height[right], height[left]));
+		height[left]>height[right] ? right-- : left++;
+	}
+	return area;
+}
+//Happy Number
+int ret(int temp)
+{
+	int sum = 0;
+	while (temp)
+	{
+		sum += (temp % 10) * (temp % 10);
+		temp /= 10;
+	}
+	return sum;
+}
+bool isHappy(int n) {
+	int temp = n;
+	if (temp == 0)
+		return false;
+	while (temp!=1&&temp!=7)
+	{
+		if (temp > 1 && temp < 10)
+			return false;
+		temp = ret(temp);
+	}
+	return true;
+}
+//Spiral Matrix
+
 int main()
 {
-	int n = 4;
-	cout<<n<<" "<<hammingWeight(n);
+	int n = 1;
+	cout << isHappy(n);
 	
 	//Integer to Roman
 	/*int num = 101;
