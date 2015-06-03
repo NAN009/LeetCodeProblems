@@ -837,12 +837,51 @@ void rotate(vector<int>& nums, int k)
 	}
 	nums.erase(nums.begin(), nums.begin() + len);
 }
+void rotate1(int nums[], int n, int k) {
+	k = k % n;
+	reverse(nums, nums + n);	
+	reverse(nums, nums + k);	
+	reverse(nums + k, nums + n);	
+}
+//Trapping Rain Water 
+//Find Peak Element  并非最大值，而是极大值，下面第一个是最大值，第二个是极大值
+int findPeakElement(vector<int>& nums) {
+	int index = 0, peakVal = nums[0];
+	for (int i = 1; i < nums.size() - 1; ++i)
+	{
+		if (nums[i]>nums[i-1]&&nums[i]>nums[i+1])
+		{
+			if (nums[i] > peakVal)
+			{
+				index = i;
+				peakVal = nums[i];
+			}		
+		}
+	}
+	if (nums[nums.size() - 1] > peakVal)
+		return nums.size() - 1;
+	return index;
+}
+int findPeakElement1(const vector<int> &num) 
+{
+	int low = 0, high = num.size() - 1;
+	while (low < high - 1) {
+		int mid = (low + high) / 2;
+		if (num[mid] > num[mid - 1] && num[mid] > num[mid + 1])
+			return mid;
+		else if (num[mid] > num[mid + 1])
+			high = mid - 1;
+		else
+			low = mid + 1;
+	}
+	return num[low] > num[high] ? low : high;
+}
+
 int main()
 {
-	vector<int> nums = { 1, 2, 3, 4, 5, 6, 7 };
-	int k = 3;
-	rotate(nums, k);
-	cout<<nums[1];
+	vector<int> nums = { 1, 9, 2, 4, 5, 8, 7 };
+	
+	cout<<findPeakElement1(nums);
 	//Integer to Roman
 	/*int num = 101;
 	cout<<intToRoman(num);*/
