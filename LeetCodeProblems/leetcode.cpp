@@ -426,8 +426,7 @@ int strStr(char *haystack, char *needle)
 				{
 					b = true;
 					break;
-				}
-				
+				}				
 			}
 			if (!b)
 				return i;
@@ -435,6 +434,52 @@ int strStr(char *haystack, char *needle)
 	}
 	return -1;
 }
+static void compute_prefix(const char *pattern, int next[])
+{
+	int i;
+	int j = -1;
+	const int m = strlen(pattern);
+	next[0] = j;
+	for (i = 1; i < m; ++i)
+	{
+		while (j>-1 && pattern[j + 1] != pattern[j])
+			j = next[j];
+		if (pattern[i] == pattern[j + 1])
+			j++;
+		next[i] = j;
+	}
+}
+static int kmp(const char *text, const char *pattern)
+{
+	int i, j = -1;
+	const int n = strlen(text), m = strlen(pattern);
+	if (n == 0 && m == 0)
+		return 0;
+	if (m == 0)
+		return 0;
+	int *next = new int[m];
+	compute_prefix(pattern, next);
+	for (i = 0; i < n; ++i)
+	{
+		while (j>-1 && pattern[j + 1] != text[i])
+			j = next[j];
+		if (text[i] == pattern[j + 1])
+			j++;
+		if (j == m - 1)
+		{
+			delete[]next;
+			return i - j;
+		}
+	}
+	delete[]next;
+	return -1;
+}
+int strStr2(char *haystack, char *needle)
+{
+	int pos = kmp(haystack, needle);	
+	return pos;
+}
+
 //Roman to Integer
 int romanToInt(string s) 
 {
@@ -877,11 +922,35 @@ int findPeakElement1(const vector<int> &num)
 	return num[low] > num[high] ? low : high;
 }
 
+//Valid Palindrome
+bool isPalinrome(string s)
+{
+	transform(s.begin(), s.end(), s.begin(), ::tolower); //transform 将某操作应用于指定范围的每个元素
+	auto left = s.begin(), right = prev(s.end()); //prev(): Get iterator to previous element
+	while (left < right)
+	{
+		if (!::isalnum(*left))
+			++left;
+		else if (!::isalnum(*right))
+			--right;
+		else if (*left != *right)
+			return false;
+		else
+		{
+			left++;
+			right--;
+		}
+	}
+	return true;		
+}
+//Implement strStr()
+
 int main()
 {
-	vector<int> nums = { 1, 9, 2, 4, 5, 8, 7 };
+	char s1[9] = { 'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h' }, s2[5]= { 'e', 'f', 'g', 'h' };
+	cout << strStr2(s1, s2);	 
 	
-	cout<<findPeakElement1(nums);
+	
 	//Integer to Roman
 	/*int num = 101;
 	cout<<intToRoman(num);*/
