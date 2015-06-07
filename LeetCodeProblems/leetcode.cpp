@@ -405,7 +405,8 @@ string getPermutation(int n, int k)
 	}
 	return s;
 }
-//Implement strStr() 
+//Implement strStr() 字符串匹配算法
+//暴力破解
 int strStr(char *haystack, char *needle)
 {
 	int len1 = strlen(haystack);
@@ -434,6 +435,7 @@ int strStr(char *haystack, char *needle)
 	}
 	return -1;
 }
+//kmp
 static void compute_prefix(const char *pattern, int next[])
 {
 	int i;
@@ -474,12 +476,45 @@ static int kmp(const char *text, const char *pattern)
 	delete[]next;
 	return -1;
 }
-int strStr2(char *haystack, char *needle)
+int strStrKmp(char *haystack, char *needle)
 {
 	int pos = kmp(haystack, needle);	
 	return pos;
 }
-
+//sundary算法：首先将两个指针指向起始位置，当发现失配时，判断母串中子串后一位的对应位置的字符（k指向）在子串中是否存在。若存在，将该位置和子串中该字符对齐，然后从子串头部开始匹配。若不存在，将子串后移并和母串的k+1位置对齐，再进行匹配。重复上述操作至被遍历完
+int position(string neddle, char c)
+{
+	int i = neddle.size() - 1;
+	while (neddle[i])
+	{
+		if (neddle[i] == c)
+			return i;
+		i--;
+	}
+	return -1;
+}
+int sundary(string haystack, string neddle)
+{
+	int lenHaystack = haystack.size(),lenNeddle=neddle.size();
+	int i = 0,j = 0, pos;
+	while (j<lenHaystack)
+	{
+		i = 0;
+		while(haystack[i + j] == neddle[i])
+		{
+			i++;
+			continue;
+		}
+		if (neddle[i] == '\0')
+			return j;
+		pos = position(neddle, haystack[j + lenNeddle]);
+		if (pos != -1)
+			j += pos;
+		else
+			j += (lenNeddle + 1);
+	}
+	return -1;
+}
 //Roman to Integer
 int romanToInt(string s) 
 {
@@ -921,7 +956,6 @@ int findPeakElement1(const vector<int> &num)
 	}
 	return num[low] > num[high] ? low : high;
 }
-
 //Valid Palindrome
 bool isPalinrome(string s)
 {
@@ -943,13 +977,41 @@ bool isPalinrome(string s)
 	}
 	return true;		
 }
-//Implement strStr()
-
+//Count and Say 
+string countAndSay(int n) 
+{
+	int i = 3;
+	if (n == 1)
+		return "1";
+	string s1,s="11";
+	if (n == 2)
+		return s;
+	while (i <= n)
+	{
+		int count = 1;
+		for (int j = 0; j < s.size(); ++j)
+		{			
+			if (s[j] != s[j + 1])
+			{
+				s1 += count+'0';
+				s1 += s[j];
+				count = 1;
+			}
+			if (s[j]==s[j+1])
+				count++;			
+		}
+		s = s1;
+		s1.clear();
+		i++;
+	}
+	return s;
+}
 int main()
 {
-	char s1[9] = { 'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h' }, s2[5]= { 'e', 'f', 'g', 'h' };
-	cout << strStr2(s1, s2);	 
-	
+	/*char s1[9] = { 'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h' }, s2[5]= { 'e', 'f', 'g', 'h' };
+	cout << sundary(s1, s2);	 */
+	int n = 4;
+	cout << countAndSay(n);
 	
 	//Integer to Roman
 	/*int num = 101;
