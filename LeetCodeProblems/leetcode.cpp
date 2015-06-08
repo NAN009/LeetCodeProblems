@@ -1122,12 +1122,79 @@ bool isNumber(string s)
 	}
 	return false;
 }
+//Minimum Window Substring
+string minWindow(string s, string t)
+{
+	
+	return s;
+}
+//Multiply Strings
+string add(string s1, string s2)
+{
+	string s;
+	int carry = 0;
+	if (s1.size() > s2.size())
+		s2.swap(s1);
+	for (int i = 0; i < s2.size(); ++i)
+	{
+		if (i < s1.size())
+		{
+			int x = s1[i] - '0' + s2[i] - '0' + carry;
+			s.push_back(x % 10 + '0');
+			carry = x / 10;
+		}
+		else
+		{
+			int x = s2[i] - '0' + carry;
+			s.push_back(x % 10 + '0');
+			carry = x / 10;
+		}
+	}
+	if (carry!=0)
+		s.push_back(carry + '0');
+	return s;
+}
+string multiply(string num1, string num2)
+{
+	vector<string> mul(num1.size()+num2.size());
+	string s1;
+	for (int i = num1.size() - 1; i >= 0;i--)
+	{
+		int temp = 0;
+		for (int k = 0; k < num1.size() - 1 - i; ++k)
+			mul[i].push_back('0');
+		for (int j = num2.size() - 1; j >= 0;j--)
+		{
+			int x = (num1[i]-'0') * (num2[j]-'0')+temp;	
+			mul[i].push_back(x % 10 + '0');
+			temp = x / 10;
+		}
+		if (temp!=0)
+			mul[i].push_back(temp+'0');
+	}
+	s1 = mul[0];
+	for (int i = 1; i < mul.size();i++)
+	{	
+		if (mul[i].empty())
+			break;
+		s1=add(s1, mul[i]);
+	}
+	reverse(s1.begin(), s1.end());
+	while (s1.size()!=1)
+	{
+		if (s1[0] == '0')
+			s1.erase(s1.begin());
+		else 
+			break;
+	}			
+	return s1;
+}
 int main()
 {
 	/*char s1[9] = { 'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h' }, s2[5]= { 'e', 'f', 'g', 'h' };
 	cout << sundary(s1, s2);	 */
-	string s = "0052e+5";
-	cout << isNumber(s);
+	string s1 = "9",s2="9";
+	cout << multiply(s1,s2);
 	
 	//Integer to Roman
 	/*int num = 101;
