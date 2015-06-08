@@ -1006,12 +1006,128 @@ string countAndSay(int n)
 	}
 	return s;
 }
+//Valid Number
+bool isPositiveNumber(string s)
+{
+	int point_position= -1,count_digit=0,e_pisition=-1;
+	if (!isdigit(s[0]))
+		return false;
+	for (int i = 1; i < s.size(); ++i)
+	{			
+		if (!isdigit(s[i]))
+		{
+			if (s[i] == '.')
+			{
+				if (point_position != -1)
+					return false;
+				point_position = i;
+			}
+			else if (s[i] == 'e')
+			{
+				if (i == s.size() - 1)
+					return false;
+				if (e_pisition != -1)
+					return false;
+				e_pisition = i;
+			}
+			else if (s[i] == '-')
+			{
+				if (!(s[i - 1] == 'e'&&isdigit(s[i+1])))
+					return false;
+			}
+			else if (s[i] == '+')
+			{
+				if (!(s[i - 1] == 'e'&&isdigit(s[i + 1])))
+					return false;
+			}
+			else
+				return false;
+		}				
+	}
+	if (e_pisition < point_position&&e_pisition!=-1)
+		return false;
+	return true;
+}
+bool isNumber(string s)
+{
+	if (s.empty())
+		return false;
+	if (s.size() == 1 && isdigit(s[0]))
+		return true;
+	int count_plus = 0,count_subtraction;
+	for (int i = 0; i < s.size(); ++i)
+	{
+		if (s[0] == ' ')
+		{
+			s.erase(s.begin());
+		}	
+		else
+			break;
+	}
+	for (int i = s.size() - 1; i >= 0; --i)
+	{
+		if (s[s.size()-1] == ' ')
+		{
+			s.erase(s.end()-1);
+		}
+		else
+			break;
+	}
+	if (s[0]=='-')
+	{
+		s.erase(s.begin());
+		if (isPositiveNumber(s))
+			return true;
+	}
+	if (s[0] == '+')
+	{
+		s.erase(s.begin());
+		if (isPositiveNumber(s))
+			return true;
+	}
+	if (isdigit(s[0]))
+		return isPositiveNumber(s);
+	int e_pisition = -1;
+	if (s[0] == '.'&&s.size()>1)
+	{
+		if (!isdigit(s[1]))
+			return false;
+		for (int i = 2; i < s.size(); ++i)
+		{
+			if (!isdigit(s[i]))
+			{
+				if (s[i] == 'e')
+				{
+					if (i == s.size() - 1)
+						return false;
+					if (e_pisition != -1)
+						return false;
+					e_pisition = i;
+				}
+				else if (s[i] == '-')
+				{
+					if (!(s[i - 1] == 'e'&&isdigit(s[i + 1])))
+						return false;
+				}
+				else if (s[i] == '+')
+				{
+					if (!(s[i - 1] == 'e'&&isdigit(s[i + 1])))
+						return false;
+				}
+				else
+					return false;
+			}
+		}
+		return true;
+	}
+	return false;
+}
 int main()
 {
 	/*char s1[9] = { 'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h' }, s2[5]= { 'e', 'f', 'g', 'h' };
 	cout << sundary(s1, s2);	 */
-	int n = 4;
-	cout << countAndSay(n);
+	string s = "0052e+5";
+	cout << isNumber(s);
 	
 	//Integer to Roman
 	/*int num = 101;
