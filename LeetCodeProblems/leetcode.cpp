@@ -1006,6 +1006,32 @@ string countAndSay(int n)
 	}
 	return s;
 }
+string countAndSay_leetcode(int n)
+{
+	if (0 == n)
+		return "";
+	if (1 == n)
+		return "1";
+	string res = "1";
+	string s;
+	for (int i = 1; i < n; ++i)
+	{
+		int len = res.size();
+		for (int j = 0; j < len; ++j)
+		{
+			int count = 1;
+			while ((j + 1 < len) && (res[j] == res[j+1]))
+			{
+				count++;
+				j++;
+			}
+			s += to_string(count) + res[j];//Returns a string with the representation of val.
+		}
+		res = s;
+		s.clear();
+	}
+	return res;
+}
 //Valid Number
 bool isPositiveNumber(string s)
 {
@@ -1122,6 +1148,7 @@ bool isNumber(string s)
 	}
 	return false;
 }
+
 //Minimum Window Substring
 string minWindow(string s, string t)
 {
@@ -1189,6 +1216,26 @@ string multiply(string num1, string num2)
 	}			
 	return s1;
 }
+string multiply_leetcode(string num1, string num2)
+{
+	string sum(num1.size() + num2.size(), '0');
+	for (int i = num1.size() - 1; 0 <= i; --i)
+	{
+		int carry = 0;
+		for (int j = num2.size() - 1; 0 <= j; --j)
+		{
+			int tmp = (sum[i + j + 1] - '0') + (num1[i] - '0')*(num2[j] - '0') + carry;
+			sum[i + j + 1] = tmp % 10 + '0';
+			carry = tmp / 10;
+		}
+		sum[i] += carry;
+	}
+	size_t startpos = sum.find_first_not_of("0");
+	if (string::npos != startpos)
+		return sum.substr(startpos);
+	return "0";
+}
+
 int main()
 {
 	/*char s1[9] = { 'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h' }, s2[5]= { 'e', 'f', 'g', 'h' };
