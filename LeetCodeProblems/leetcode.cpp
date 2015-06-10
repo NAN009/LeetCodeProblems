@@ -1235,13 +1235,101 @@ string multiply_leetcode(string num1, string num2)
 		return sum.substr(startpos);
 	return "0";
 }
+//Kth Largest Element in an Array
+int findKthLargest(vector<int>& nums, int k) //‡å
+{
+	sort(nums.begin(), nums.end());
+	return nums[nums.size() - k];
+}
+int partition(vector<int> nums, int left, int right)
+{
+	int pivot = nums[left];
+	int l = left + 1,r=right;
+	while (l<=r)
+	{
+		if (nums[l]<pivot&&nums[r]>pivot)
+			swap(nums[l++],nums[r--]);
+		if (nums[l] >= pivot)l++;
+		if (nums[r] <= pivot)r--;
+	}
+	swap(nums[left], nums[r]);
+	return r;
+}
+int findKthLargest_leetcode(vector<int>& nums, int k)
+{
+	int left = 0, right = nums.size() - 1;
+	while (true)
+	{
+		int pos = partition(nums, left, right);
+		if (pos == k - 1)return nums[pos];
+		if (pos > k - 1)return pos - 1;
+		else 
+			left = pos + 1;
+	}
+}
+//Set Matrix Zeroes
+void setZeroes(vector<vector<int>>& matrix) 
+{
 
+	vector<int> col(matrix[0].size(),0),row( matrix.size(), 0);
+	for (int i = 0; i < matrix.size();++i)
+	{
+		for (int j = 0; j < matrix[0].size();++j)
+		{
+			if (matrix[i][j] == 0)
+			{
+				col[j] = 1;
+				row[i] = 1;
+			}
+		}
+	}
+	for (int i = 0; i < matrix.size(); ++i)
+	{
+		if (row[i] != 0)
+		for (int j = 0; j < matrix[0].size(); ++j)
+		{
+			matrix[i][j] = 0;
+		}
+	}
+	for (int i = 0; i < matrix[0].size(); ++i)
+	{
+		if (col[i] != 0)
+		for (int j = 0; j < matrix.size(); ++j)
+		{
+			matrix[j][i] = 0;
+		}
+	}	
+}
+void setZeroes_leetcode(vector<vector<int>>& matrix)
+{
+	int col0 = 1, rows = matrix.size(), cols = matrix[0].size();
+	for (int i = 0; i < rows; i++)
+	{
+		if (matrix[i][0] == 0)col0 = 0;
+		for (int j = 1; j < cols;++j)
+		{
+			if (matrix[i][j] == 0)
+				matrix[i][0] = matrix[0][j] = 0;
+		}
+	}
+	for (int i = rows - 1; i >= 0; i--)
+	{
+		for (int j = cols - 1; j >= 1;j--)
+		{
+			if (matrix[i][0] == 0 || matrix[0][j] == 0)
+				matrix[i][j] = 0;
+		}
+		if (col0 == 0)
+			matrix[i][0] = 0;
+	}
+}
 int main()
 {
 	/*char s1[9] = { 'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h' }, s2[5]= { 'e', 'f', 'g', 'h' };
 	cout << sundary(s1, s2);	 */
-	string s1 = "9",s2="9";
-	cout << multiply(s1,s2);
+	vector<vector<int>> a = { { 1, 2, 3 },{ 1, 2, 5 },{0,1,3} };
+	setZeroes(a);
+	cout << a[0][0];
 	
 	//Integer to Roman
 	/*int num = 101;
