@@ -5,6 +5,7 @@
 #include<time.h>
 #include<stdlib.h>
 #include <set>
+#include "LinkedLIst.h"
 using namespace std;
 //顺时针旋转90度 Rotate Image
 void retate(vector<vector<int> > &matrix)
@@ -111,8 +112,26 @@ struct ListNode
 {
 	int val;
 	ListNode *next;
-	ListNode(int x) :val(x), next(NULL){}
+	//ListNode(int x) :val(x), next(NULL){}
 };
+//Linked List Cycle
+bool hasCycle(ListNode *head)
+{
+	if (head == nullptr || head->next == nullptr)
+	{
+		return false;
+	}
+	ListNode *first = head, *second = head->next;
+	while (second&&second->next)
+	{
+		if (first == second)
+			return true;
+		first = first->next;
+		second = second->next->next;
+	}
+	return false;
+}
+
 ListNode *deleteDuplicates(ListNode *head)
 {
 	if (head == NULL || head->next == NULL)
@@ -129,6 +148,35 @@ ListNode *deleteDuplicates(ListNode *head)
 		}
 		else
 			l = l->next;
+	}
+	return head;
+}
+ListNode *deleteDuplicates_leetcode(ListNode *head) //未使用额外空间
+{
+	ListNode *list = head;
+	while (list != nullptr)
+	{
+		if (list->next=nullptr)
+			break;
+		if (list->val == list->next->val)
+			list->next = list->next->next;
+		else
+			list = list->next;
+	}
+	return head;
+}
+//Swap Nodes in Pairs 
+ListNode* swapPairs(ListNode* head) 
+{
+	if (head == nullptr||head->next == nullptr  )
+		return head;
+	ListNode *first = head;
+	while (first&&first->next)
+	{
+		first->val = first->next->val + first->val;
+		first->next->val = first->val - first->next->val;
+		first->val = first->val - first->next->val;
+		first = first->next->next;
 	}
 	return head;
 }
@@ -1323,13 +1371,13 @@ void setZeroes_leetcode(vector<vector<int>>& matrix)
 			matrix[i][0] = 0;
 	}
 }
+
 int main()
 {
-	/*char s1[9] = { 'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h' }, s2[5]= { 'e', 'f', 'g', 'h' };
-	cout << sundary(s1, s2);	 */
-	vector<vector<int>> a = { { 1, 2, 3 },{ 1, 2, 5 },{0,1,3} };
-	setZeroes(a);
-	cout << a[0][0];
+	ListNode d = { 2, NULL }, c = { 1, &d };
+	
+	ListNode *x=swapPairs(&c);
+	cout << x->val;
 	
 	//Integer to Roman
 	/*int num = 101;
