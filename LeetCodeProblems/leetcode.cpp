@@ -180,6 +180,47 @@ ListNode* swapPairs(ListNode* head)
 	}
 	return head;
 }
+//Merge Two Sorted Lists 
+ListNode* mergeTwoLists(ListNode* l1, ListNode* l2) //·½·¨ÓÐÎó
+{
+	ListNode *l=nullptr, *cur1 = l1, *cur2 = l2,*cur=l;
+	if (l1 == nullptr)
+		return l2;
+	if (l2 == nullptr)
+		return l1;
+	while (cur1&&cur2)
+	{
+		l = cur2;
+		l2 = cur2->next;
+		l1 = cur1->next;
+		cur1->next=cur2;
+		l = cur1;
+		cur2 = l2;
+		cur1 = l1;
+	}
+	if (cur1)
+		l = cur1;
+	else
+		l = cur2;
+	return l;
+}
+ListNode *mergeTwoLists_leetcode(ListNode *l1, ListNode *l2)
+{
+	if (l1 == nullptr)
+		return l2;
+	if (l2 = nullptr)
+		return l1;
+	if (l1->val < l2->val)
+	{
+		l1->next = mergeTwoLists(l1->next, l2);
+		return l1;
+	}
+	else
+	{
+		l2->next = mergeTwoLists(l2->next, l1);
+		return l2;
+	}
+}
 //Reverse Linked List II
 ListNode *reverseBetween(ListNode *head, int m, int n)
 {
@@ -1374,9 +1415,9 @@ void setZeroes_leetcode(vector<vector<int>>& matrix)
 
 int main()
 {
-	ListNode d = { 2, NULL }, c = { 1, &d };
+	ListNode d = { 2, NULL }, c = { 1, NULL };
 	
-	ListNode *x=swapPairs(&c);
+	ListNode *x=mergeTwoLists(&d,&c);
 	cout << x->val;
 	
 	//Integer to Roman
