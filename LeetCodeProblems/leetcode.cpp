@@ -276,6 +276,79 @@ ListNode *removeNthFromEnd(ListNode *head, int n)
 		p->next = p->next->next;
 	return head;
 }
+//Reverse Linked List 
+ListNode* reverseList(ListNode* head)
+{
+	if (head == NULL || head->next == NULL)
+		return head;
+	ListNode *pos = head->next, *cur = head;
+	cur->next = NULL;
+	while (pos)
+	{
+		head = pos;
+		pos = pos->next;
+		head->next = cur;
+		cur = head;
+	}
+	return head;
+}
+//Remove Linked List Elements 
+ListNode* removeElements(ListNode* head, int val)
+{
+	while (head != NULL&&head->val == val)//while (head->val == val&&head != NULL)如果改写为这样，就会出错。因为当head为空时，while 语句先判断head->val == val，但head->val不存在故报错
+	{
+		head = head->next;
+	}
+	if (head == NULL)
+		return NULL;
+	ListNode *cur=head->next, *prev = head;
+	while (cur)
+	{
+		if (cur->val == val)
+			prev->next = cur->next;
+		else
+			prev = prev->next;
+		cur = cur->next;
+	}
+	return head;
+}
+ListNode* removeElements_leetcode(ListNode* head, int val)//递归
+{
+	if (head = NULL)
+		return NULL;
+	head->next = removeElements_leetcode(head->next, val);
+	return head->val == val ? head->next : head;
+}
+//Linked List Cycle II 
+//http://www.cnblogs.com/x1957/p/3406448.html
+ListNode *detectCycle(ListNode *head) 
+{
+	if (head == NULL||head->next==NULL)
+		return NULL;
+	ListNode *s = head, *f = head; 
+	bool isCycle = false;
+	while (f&&s)
+	{
+		f = f->next;
+		if (s->next == NULL)
+			return NULL;
+		s = s->next->next;
+		if (f == s)
+		{
+			isCycle = true;
+			break;
+		}
+	}
+	if (!isCycle)
+		return NULL;
+	f = head;
+	while (f!=s)
+	{
+		f = f->next;
+		s = s->next;
+	}
+	return f;
+}
 //Valid Number 
 bool isNumber(const char *s)
 {
@@ -1415,9 +1488,9 @@ void setZeroes_leetcode(vector<vector<int>>& matrix)
 
 int main()
 {
-	ListNode d = { 2, NULL }, c = { 1, NULL };
+	ListNode d = { 1, NULL }, c = { 1, &d };
 	
-	ListNode *x=mergeTwoLists(&d,&c);
+	ListNode *x=removeElements(&c,1);
 	cout << x->val;
 	
 	//Integer to Roman

@@ -29,10 +29,6 @@ void Routine2(Item *x)
 	}
 }
 
-struct LNode
-{
-	int val;
-	LNode *next;
-	LNode(int x) : val(x), next(nullptr){}
-};
+
+
 
