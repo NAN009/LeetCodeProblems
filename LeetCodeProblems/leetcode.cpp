@@ -349,6 +349,40 @@ ListNode *detectCycle(ListNode *head)
 	}
 	return f;
 }
+//Add Two Numbers
+ListNode* addTwoNumbers(ListNode* l1, ListNode* l2) //error
+{
+	ListNode *l = NULL,*head=l1;
+	int carry=0;
+	while (l1&&l2)
+	{
+		head->val = (l1->val + l2->val + carry)%10;
+		carry = (l1->val + l2->val + carry) / 10;
+		head->next = l;
+		l = head;
+		l1 = l1->next;
+		l2 = l2->next;
+	}
+	while (l1)
+	{
+		head->val = (l1->val + carry) % 10;
+		carry = (l1->val + carry) / 10;
+		head->next = l;
+		l = head;
+		l1 = l1->next;
+		
+	}
+	while (l2)
+	{
+		head->val = (l2->val + carry) % 10;
+		carry = (l2->val + carry) / 10;
+		head->next = l;
+		l = head;
+		l2 = l2->next;
+	}
+	return l;
+
+}
 //Valid Number 
 bool isNumber(const char *s)
 {
@@ -1488,9 +1522,9 @@ void setZeroes_leetcode(vector<vector<int>>& matrix)
 
 int main()
 {
-	ListNode d = { 1, NULL }, c = { 1, &d };
+	ListNode d = { 0, NULL }, f = {3,NULL} ,c = { 7, &f };
 	
-	ListNode *x=removeElements(&c,1);
+	ListNode *x=addTwoNumbers(&d,&c);
 	cout << x->val;
 	
 	//Integer to Roman
