@@ -112,7 +112,7 @@ struct ListNode
 {
 	int val;
 	ListNode *next;
-	//ListNode(int x) :val(x), next(NULL){}
+	ListNode(int x) :val(x), next(NULL){}
 };
 //Linked List Cycle
 bool hasCycle(ListNode *head)
@@ -222,7 +222,7 @@ ListNode *mergeTwoLists_leetcode(ListNode *l1, ListNode *l2)
 	}
 }
 //Reverse Linked List II
-ListNode *reverseBetween(ListNode *head, int m, int n)
+ListNode *reverseBetween1(ListNode *head, int m, int n)
 {
 	ListNode *q = head, *qm=q, *qn=q;
 	int i = 1, data;
@@ -350,13 +350,13 @@ ListNode *detectCycle(ListNode *head)
 	return f;
 }
 //Add Two Numbers
-ListNode* addTwoNumbers(ListNode* l1, ListNode* l2) //error
+ListNode* addTwoNumbers(ListNode* l1, ListNode* l2) //头插法
 {
-	ListNode *l = NULL,*head=l1;
+	ListNode *l = NULL;
 	int carry=0;
 	while (l1&&l2)
 	{
-		head->val = (l1->val + l2->val + carry)%10;
+		ListNode *head = new ListNode((l1->val + l2->val + carry) % 10);
 		carry = (l1->val + l2->val + carry) / 10;
 		head->next = l;
 		l = head;
@@ -365,23 +365,94 @@ ListNode* addTwoNumbers(ListNode* l1, ListNode* l2) //error
 	}
 	while (l1)
 	{
-		head->val = (l1->val + carry) % 10;
+		ListNode *head = new ListNode((l1->val + carry) % 10);		
 		carry = (l1->val + carry) / 10;
 		head->next = l;
 		l = head;
 		l1 = l1->next;
-		
 	}
 	while (l2)
 	{
+		ListNode *head = new ListNode((l2->val + carry) % 10);
 		head->val = (l2->val + carry) % 10;
 		carry = (l2->val + carry) / 10;
 		head->next = l;
 		l = head;
 		l2 = l2->next;
 	}
+	if (carry)
+	{
+		ListNode *head = new ListNode( carry % 10);
+		head->next = l;
+		l = head;
+	}
 	return l;
-
+}
+ListNode* addTwoNumbers1(ListNode* l1, ListNode* l2)//error
+{
+	ListNode head(0),*cur=&head,*tmp=NULL;
+	int carry = 0;
+	while (l1&&l2)
+	{
+		cur->next = new ListNode((l1->val + l2->val + carry) % 10);
+		carry = (l1->val + l2->val+carry) / 10;
+		cur=cur->next;		
+		l1 = l1->next;
+		l2 = l2->next;
+	}
+	
+	while (l1)
+	{
+		cur->next = new ListNode((tmp ? tmp->val : 0 + carry) % 10);
+		carry = (tmp ? tmp->val : 0+carry) / 10;
+		cur = cur->next;
+		tmp = tmp ? tmp->next : tmp;
+	}
+	return head.next;
+}
+ListNode* addTwoNumbers_leetcode(ListNode* l1, ListNode* l2)//尾插法
+{
+	ListNode prehead(0), *p = &prehead;
+	int carry = 0;
+	while (l1 || l2 || carry)
+	{
+		int sum = (l1 ? l1->val : 0) + (l2 ? l2->val : 0) + carry;
+		carry = sum / 10;
+		p->next = new ListNode(sum % 10);
+		p = p->next;
+		l1 = l1 ? l1->next : l1;//?: 优先级大于=
+		l2 = l2 ? l2->next : l2;
+	}
+	return prehead.next;
+}
+//Reverse Linked List II
+ListNode* reverseBetween(ListNode* head, int m, int n) 
+{
+		ListNode prehead(0), *l = &prehead, *p = NULL,*q=NULL;
+		int count = 1;
+		while (head)
+		{
+			if (count >= m&&count <= n)//头插法
+			{
+				p = new ListNode(head->val);
+				p->next=q;
+				q = p;
+			}
+			else 	//尾插法
+			{			
+				l->next = new ListNode(head->val);
+				l = l->next;
+			}
+			while(count>=n&&q)
+			{
+				l->next = q;
+				l = l->next;
+				q = q->next;
+			}		
+			head = head->next;
+			count++;
+		}
+		return prehead.next;	
 }
 //Valid Number 
 bool isNumber(const char *s)
@@ -1522,10 +1593,16 @@ void setZeroes_leetcode(vector<vector<int>>& matrix)
 
 int main()
 {
-	ListNode d = { 0, NULL }, f = {3,NULL} ,c = { 7, &f };
+	int a[3] = {3,5};
+	ListNode prehead(0),*p=&prehead;
+	int m = 1, n = 2;
+	for (int i = 0; i < 2; i++)
+	{
+	    p->next = new ListNode(a[i]);
+		p = p->next;
+	}
+	p = reverseBetween(prehead.next, m, n);
 	
-	ListNode *x=addTwoNumbers(&d,&c);
-	cout << x->val;
 	
 	//Integer to Roman
 	/*int num = 101;
