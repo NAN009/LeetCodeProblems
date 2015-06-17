@@ -107,7 +107,7 @@ int findMin(vector<int> &num)
 	}
 	return num[0];
 }
-//Remove Duplicates from Sorted List
+
 struct ListNode
 {
 	int val;
@@ -131,7 +131,7 @@ bool hasCycle(ListNode *head)
 	}
 	return false;
 }
-
+//Remove Duplicates from Sorted List
 ListNode *deleteDuplicates(ListNode *head)
 {
 	if (head == NULL || head->next == NULL)
@@ -454,6 +454,77 @@ ListNode* reverseBetween(ListNode* head, int m, int n)
 		}
 		return prehead.next;	
 }
+//Insertion Sort List 
+ListNode* insertionSortList(ListNode* head)
+{
+	if (head == NULL||head->next==NULL)
+		return head;
+	int miximal = 10000;
+	ListNode *h = head;
+	while (h)
+	{
+		if (h->val < miximal)
+			miximal = h->val;
+		h = h->next;
+	}
+	ListNode prehead(miximal);	
+	while (head)
+	{
+		ListNode *cur = &prehead;
+		while (cur->next)
+		{
+			if (head->val >= cur->val&&head->val<=cur->next->val)
+			{
+				ListNode *next = cur->next;
+				cur->next = new ListNode(head->val);
+				cur->next->next = next;
+				break;
+			}
+			cur = cur->next;
+		}
+		if (cur->next == NULL)
+		{
+			if (head->val >= cur->val)
+				cur->next = new ListNode(head->val);
+		}
+		head = head->next;
+	}
+	return  prehead.next;
+}
+//Rotate List
+ListNode* rotateRight(ListNode* head, int k)
+{
+	if (head == NULL || head->next == NULL)
+		return head;
+	int count = 0;
+	ListNode *p = head, prehead(0), *l = &prehead;
+	while (p)
+	{
+		p = p->next;
+		count++;
+	}
+	if (k > count)
+		k = k%count;
+	p = head;
+	for (int i = 0; i < count; i++)
+	{
+		if (i >= count - k)
+		{
+			l->next = new ListNode(p->val);
+			l = l->next;
+		}
+		p = p->next;
+	}
+	p = head;
+	for (int i = 0; i < count-k; i++)
+	{
+		l->next = new ListNode(p->val);
+		l = l->next;
+		p = p->next;
+	}
+	return prehead.next;
+}
+
 //Valid Number 
 bool isNumber(const char *s)
 {
@@ -1593,15 +1664,15 @@ void setZeroes_leetcode(vector<vector<int>>& matrix)
 
 int main()
 {
-	int a[3] = {3,5};
+	int a[5] = {1,2,3,4,5};
 	ListNode prehead(0),*p=&prehead;
 	int m = 1, n = 2;
-	for (int i = 0; i < 2; i++)
+	for (int i = 0; i < 5; i++)
 	{
 	    p->next = new ListNode(a[i]);
 		p = p->next;
 	}
-	p = reverseBetween(prehead.next, m, n);
+	p = rotateRight(prehead.next,n);
 	
 	
 	//Integer to Roman
