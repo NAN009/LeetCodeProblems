@@ -165,6 +165,31 @@ ListNode *deleteDuplicates_leetcode(ListNode *head) //未使用额外空间
 	}
 	return head;
 }
+//Remove Duplicates from Sorted List II
+ListNode* deleteDuplicates2(ListNode* head)
+{
+	if (head == NULL || head->next == NULL)
+		return head;
+	ListNode sentinel(-1), *l = &sentinel;
+	l->next = head;
+	l = &sentinel;
+	while (head)
+	{
+		bool t = false;
+		while (head->next&&head->val==head->next->val)
+		{
+			t = true;
+			head->next = head->next->next;
+		}		
+		if (!t)
+			l = l->next;		
+		if (t)
+			l->next = head->next;
+		head = head->next;
+	}
+	return sentinel.next;
+
+}
 //Swap Nodes in Pairs 
 ListNode* swapPairs(ListNode* head) 
 {
@@ -524,6 +549,10 @@ ListNode* rotateRight(ListNode* head, int k)
 	}
 	return prehead.next;
 }
+//Sort List
+
+
+
 
 //Valid Number 
 bool isNumber(const char *s)
@@ -1664,7 +1693,7 @@ void setZeroes_leetcode(vector<vector<int>>& matrix)
 
 int main()
 {
-	int a[5] = {1,2,3,4,5};
+	int a[5] = {1,2,2,4,5};
 	ListNode prehead(0),*p=&prehead;
 	int m = 1, n = 2;
 	for (int i = 0; i < 5; i++)
@@ -1672,7 +1701,7 @@ int main()
 	    p->next = new ListNode(a[i]);
 		p = p->next;
 	}
-	p = rotateRight(prehead.next,n);
+	p = deleteDuplicates2(prehead.next);
 	
 	
 	//Integer to Roman
