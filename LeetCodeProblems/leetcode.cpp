@@ -550,8 +550,44 @@ ListNode* rotateRight(ListNode* head, int k)
 	return prehead.next;
 }
 //Sort List
-
-
+//Partition List
+ListNode* partition(ListNode* head, int x) 
+{
+	ListNode sentinel(-1),*l=&sentinel,*l1=head;
+	if (head == nullptr || head->next == nullptr)
+		return head;
+	while (l1)
+	{
+		if (l1->val < x)
+		{
+			l->next = new ListNode(l1->val);
+			l = l->next;
+		}
+			
+		l1 = l1->next;
+	}
+	while (head)
+	{
+		if (head->val >= x)
+		{
+			l->next = new ListNode(head->val);
+			l = l->next;
+		}
+		head = head->next;
+	}
+	return sentinel.next;
+}
+//Reorder List 
+void reorderList(ListNode* head)
+{
+	if (head == nullptr || head->next == nullptr||head->next->next==nullptr)
+		return ;
+	else
+	{
+		head
+	}
+	
+}
 
 
 //Valid Number 
@@ -1693,15 +1729,15 @@ void setZeroes_leetcode(vector<vector<int>>& matrix)
 
 int main()
 {
-	int a[5] = {1,2,2,4,5};
+	int a[2] = {2,1};
 	ListNode prehead(0),*p=&prehead;
 	int m = 1, n = 2;
-	for (int i = 0; i < 5; i++)
+	for (int i = 0; i < 2; i++)
 	{
 	    p->next = new ListNode(a[i]);
 		p = p->next;
 	}
-	p = deleteDuplicates2(prehead.next);
+	p = partition(prehead.next,2);
 	
 	
 	//Integer to Roman
