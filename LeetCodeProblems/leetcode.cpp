@@ -6,6 +6,7 @@
 #include<stdlib.h>
 #include <set>
 #include "LinkedLIst.h"
+#include "array.h"
 using namespace std;
 //顺时针旋转90度 Rotate Image
 void retate(vector<vector<int> > &matrix)
@@ -578,16 +579,6 @@ ListNode* partition(ListNode* head, int x)
 	return sentinel.next;
 }
 //Reorder List 
-void reorderList(ListNode* head)
-{
-	if (head == nullptr || head->next == nullptr||head->next->next==nullptr)
-		return ;
-	else
-	{
-		head
-	}
-	
-}
 
 
 //Valid Number 
@@ -1729,17 +1720,15 @@ void setZeroes_leetcode(vector<vector<int>>& matrix)
 
 int main()
 {
-	int a[2] = {2,1};
-	ListNode prehead(0),*p=&prehead;
-	int m = 1, n = 2;
-	for (int i = 0; i < 2; i++)
-	{
-	    p->next = new ListNode(a[i]);
-		p = p->next;
-	}
-	p = partition(prehead.next,2);
-	
-	
+	vector<vector<int>>matrix = { { 1, 3, 5, 7 }, { 10, 11, 16, 20 }, { 23, 30, 34, 50 } };
+	cout<<searchMatrix(matrix, 3);
+	//int a[2] = {2,1};
+	//ListNode prehead(0),*p=&prehead;
+	//for (int i = 0; i < 2; i++)//尾插法
+	//{
+	//    p->next = new ListNode(a[i]);
+	//	p = p->next;
+	//}			
 	//Integer to Roman
 	/*int num = 101;
 	cout<<intToRoman(num);*/
