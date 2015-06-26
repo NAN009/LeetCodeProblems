@@ -1720,9 +1720,10 @@ void setZeroes_leetcode(vector<vector<int>>& matrix)
 
 int main()
 {
-	vector<vector<int>>matrix2 = { { 1, 2, 3, 4 ,41}, { 5, 6, 7, 8 ,81}, { 9, 10, 11, 12,121 } };
-	vector<int>matrix1 = {1};
-	matrix1=spiralOrder(matrix2);
+	vector<int>matrix1 = { 1 };
+	vector<vector<int>>matrix2 = { { 1,2 }, { 3,4 } };
+
+	matrix2 = generateMatrix(2);
 	//int a[2] = {2,1};
 	//ListNode prehead(0),*p=&prehead;
 	//for (int i = 0; i < 2; i++)//β�巨
