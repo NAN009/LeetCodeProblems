@@ -1720,11 +1720,12 @@ void setZeroes_leetcode(vector<vector<int>>& matrix)
 
 int main()
 {
-	vector<int>matrix1 = { 1 };
+	int num ;
+	vector<int>matrix1 = { 1,0,-1,3,-1,9,8,6,7,5,4};
 	vector<vector<int>>matrix2 = { { 1,2 }, { 3,4 } };
+	num = longestConsecutive(matrix1);
 
-
-	matrix2 = generateMatrix(2);
+	
 	//int a[2] = {2,1};
 	//ListNode prehead(0),*p=&prehead;
 	//for (int i = 0; i < 2; i++)//β�巨
