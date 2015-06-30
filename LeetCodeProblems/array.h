@@ -176,3 +176,35 @@ int longestConsecutive(vector<int>& nums)
 	}
 	return maxcount>nums[i - 1] - nums[start]+1 ? maxcount : nums[i - 1] - nums[start]+1;
 }
+//Rectangle Area 
+int computeArea(int A, int B, int C, int D, int E, int F, int G, int H) 
+{		
+	if (abs(A - C)*abs(D - B) == 0)
+		return abs(G - E)*abs(F - H);
+	if (abs(G - E)*abs(F - H) == 0)
+		return abs(A - C)*abs(D - B);
+	if (C <= E||G<=A)
+		return (C - A)*(D - B) + (G - E)*(H - F);
+	if ((A <= E&&C >= E&&F >= B&&F <= D) || (A <= E&&C >= E&&H >= B&&H <= D)
+		|| (A <= G&&C >= G&&F >= B&&F <= D)||(A <= G&&C >= G&&H >= B&&H <= D))
+		return (C - A)*(D - B) + (G - E)*(H - F) - (min(C, G)-max(A, E))*(min(D, H) - max(B, F));
+}
+//Jump Game
+bool canJump(vector<int>& nums) 
+{
+	if (nums.size() == 1)
+		return true;
+	if (nums[0] == 0)
+		return false;
+	for (int i = nums.size() - 1; i >= 0; --i)
+	{
+		if (nums[i] == 0)
+		{
+			for (int k = i - 1; k >= 0; --k)
+			{
+				if (nums[k] - nums[i] <= i - k)
+					return false;
+			}
+		}
+	}
+}

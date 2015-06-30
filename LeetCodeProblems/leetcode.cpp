@@ -1721,9 +1721,9 @@ void setZeroes_leetcode(vector<vector<int>>& matrix)
 int main()
 {
 	int num ;
-	vector<int>matrix1 = { 1,0,-1,3,-1,9,8,6,7,5,4};
+	vector<int>matrix1 = { 2,1,0,0};
 	vector<vector<int>>matrix2 = { { 1,2 }, { 3,4 } };
-	num = longestConsecutive(matrix1);
+	cout << canJump(matrix1);
 
 	
 	//int a[2] = {2,1};

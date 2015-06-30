@@ -68,7 +68,10 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="array.h" />
+    <ClInclude Include="DynamicProgramming.h" />
     <ClInclude Include="LinkedLIst.h" />
+    <ClInclude Include="string_leetcode.h" />
+    <ClInclude Include="tree.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

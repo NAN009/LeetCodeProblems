@@ -26,5 +26,14 @@
     <ClInclude Include="array.h">
       <Filter>头文件</Filter>
     </ClInclude>
+    <ClInclude Include="tree.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="string_leetcode.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="DynamicProgramming.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>
