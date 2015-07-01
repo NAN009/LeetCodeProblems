@@ -7,6 +7,7 @@
 #include <set>
 #include "LinkedLIst.h"
 #include "array.h"
+#include "DynamicProgramming.h"
 using namespace std;
 //Ë³Ê±ÕëÐý×ª90¶È Rotate Image
 void retate(vector<vector<int> > &matrix)
@@ -1720,10 +1721,10 @@ void setZeroes_leetcode(vector<vector<int>>& matrix)
 
 int main()
 {
-	int num ;
-	vector<int>matrix1 = { 2,1,0,0};
+	int num ,m=3,n=3;
+	vector<int>matrix1 = { 2,3,4,2,5,1,7,10};
 	vector<vector<int>>matrix2 = { { 1,2 }, { 3,4 } };
-	cout << canJump(matrix1);
+	cout << numTrees(5);
 
 	
 	//int a[2] = {2,1};
