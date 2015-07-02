@@ -1723,8 +1723,8 @@ int main()
 {
 	int num ,m=3,n=3;
 	vector<int>matrix1 = { 2,3,4,2,5,1,7,10};
-	vector<vector<int>>matrix2 = { { 1,2 }, { 3,4 } };
-	cout << numTrees(5);
+	vector<vector<int>>matrix2 = { { 2 }, { 3, 4 }, { 6, 5, 7 }, {4,1,8,3} };
+	cout << rob2(matrix1);
 
 	
 	//int a[2] = {2,1};

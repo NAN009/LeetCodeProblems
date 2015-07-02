@@ -121,3 +121,66 @@ int numTrees(int n)
 	}
 	return fn[n];
 }
+//Unique Paths II 
+int uniquePathsWithObstacles_leetcode(vector<vector<int> > &obstacleGrid)
+{
+	int m = obstacleGrid.size(), n = obstacleGrid[0].size();
+	vector<vector<int>> dp(m + 1, vector<int>(n + 1, 0));
+	dp[0][1] = 1;
+	for (int i = 1; i <= m; ++i)
+	{
+		for (int j = 1; j <= n; ++j)
+		{
+			if (!obstacleGrid[i - 1][j - 1])
+				dp[i][j] = dp[i - 1][j] + dp[i][j - 1];
+		}
+		return dp[m][n];
+	}
+}
+//Triangle
+int minimumTotal_leetcode(vector<vector<int>>& triangle) 
+{
+	vector<int> mini = triangle[triangle.size() - 1];
+	for (int i = triangle.size() - 2; i >= 0;--i)
+		for (int j = 0; j < triangle[i].size(); ++j)
+			mini[j] = triangle[i][j] + min(mini[j], mini[j + 1]);
+	return mini[0];
+}
+//robber
+int rob(vector<int>& nums)
+{
+	int n = nums.size();
+	if (n == 0)
+		return 0;
+	if (n == 1)
+		return nums[0];
+	if (n == 2)
+		return max(nums[0], nums[1]);
+	vector<int> f(n,0);
+	f[0] = nums[0], f[1] = max(nums[0], nums[1]);
+	for (int i = 2; i < n; ++i)
+		f[i] = max(f[i - 2] + nums[i], f[i - 1]);
+	return f[n - 1];
+}
+int rob2(vector<int>& nums)
+{
+	if (nums.size() == 0)
+		return 0;
+	if (nums.size() == 1)
+		return nums[0];
+	int pre1 = 0, cur1 = 0,cur2 = 0;
+	for (int i = 0; i < nums.size() - 1; ++i)
+	{
+		int temp = pre1;
+		pre1 = cur1;
+		cur1 = max(temp + nums[i], pre1);
+	}
+	pre1 = 0;
+	for (int i = 1; i < nums.size();++i)
+	{
+		int temp = pre1;
+		pre1 = cur2;
+		cur2 = max(temp + nums[i], pre1);
+	}
+	return max(cur2, cur1);
+}
