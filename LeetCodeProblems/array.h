@@ -208,3 +208,59 @@ bool canJump(vector<int>& nums)
 		}
 	}
 }
+//Count Primes
+bool isPrime(int x)
+{
+	for (int i = 2; i <= sqrt(x); ++i)
+	{
+		if (x%i == 0)
+			return false;
+	}
+	return true;
+}
+int countPrimes(int n) 
+{	
+	if (n <= 2)
+		return 0;
+	if (n == 3)
+		return 1;
+	if (n == 5)
+		return 2;
+	if (n ==7)
+		return 3;
+	if (n == 8)
+		return 4;
+	int count = 4;
+	for (int i = 8; i < n;++i)
+	{
+		if (i%2==0||i%3==0||i%5==0||i%7==0||i%11==0||i&13==0||i%17==0||i%19==0)
+			continue;
+		else
+		{
+			if (isPrime(i))
+				count++;
+		}
+	}
+	return count;
+}
+int countPrimes1(int n)
+{
+	
+	if (n <= 2)
+		return 0;
+	if (n == 3)
+		return 1;
+	vector<int>prime = { 2, 3 };
+	for (int i = 2; i < n; ++i)
+	{
+		int j;
+		for (j = 0; j< prime.size(); ++j)
+		{
+			if (i%prime[j]==0)
+				break;
+		}
+		if (j==prime.size())
+			prime.push_back(i);
+	}
+	return prime.size();
+}

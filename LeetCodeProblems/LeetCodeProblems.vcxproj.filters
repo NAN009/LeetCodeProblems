@@ -35,5 +35,8 @@
     <ClInclude Include="DynamicProgramming.h">
       <Filter>头文件</Filter>
     </ClInclude>
+    <ClInclude Include="Stack1.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>
