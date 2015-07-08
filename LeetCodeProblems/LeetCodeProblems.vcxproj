@@ -68,6 +68,8 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="array.h" />
+    <ClInclude Include="backtracking.h" />
+    <ClInclude Include="breadthFirstSearch.h" />
     <ClInclude Include="DynamicProgramming.h" />
     <ClInclude Include="LinkedLIst.h" />
     <ClInclude Include="Stack1.h" />

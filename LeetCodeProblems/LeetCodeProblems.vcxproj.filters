@@ -38,5 +38,11 @@
     <ClInclude Include="Stack1.h">
       <Filter>头文件</Filter>
     </ClInclude>
+    <ClInclude Include="breadthFirstSearch.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="backtracking.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

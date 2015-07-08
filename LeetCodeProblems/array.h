@@ -243,24 +243,46 @@ int countPrimes(int n)
 	}
 	return count;
 }
-int countPrimes1(int n)
+bool isPrime1(int x,vector<int> &prime)
 {
-	
+	for (int i = 0; i < (int)sqrt(x); ++i)
+	{
+		if (x%prime[i] == 0)
+			return false;
+	}
+	return true;
+}
+int countPrimes1(int n)
+{	
 	if (n <= 2)
 		return 0;
 	if (n == 3)
 		return 1;
-	vector<int>prime = { 2, 3 };
-	for (int i = 2; i < n; ++i)
+	vector<int>prime = { 2,3 };
+	for (int i = 5; i < n; i+=2)
 	{
-		int j;
-		for (j = 0; j< prime.size(); ++j)
-		{
-			if (i%prime[j]==0)
-				break;
-		}
-		if (j==prime.size())
+		if (isPrime1(i, prime))
 			prime.push_back(i);
 	}
 	return prime.size();
+}
+int countPrimer_leetcode(int n)
+{
+	if (n <= 2)
+		return 0;
+	vector<bool> passed(n, false);
+	int sum = 1;
+	int upper = sqrt(n);
+	for (int i = 3; i < n;i+=2)
+	{
+		if (!passed[i])
+		{
+			sum++;
+			if (i>upper)
+				continue;
+			for (int j = i*i; j < n; j += i)
+				passed[j] = true;
+		}
+	}
+	return sum;
 }
