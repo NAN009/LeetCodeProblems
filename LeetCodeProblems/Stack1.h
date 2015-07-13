@@ -5,7 +5,7 @@
 using namespace std;
 //后缀表示（逆波兰式）：把运算符放在两个运算对象的后边
 //Binary Tree Inorder Traversal
-struct TreeNode {
+extern struct TreeNode {
 	int val;
 	TreeNode *left;
 	TreeNode *right;

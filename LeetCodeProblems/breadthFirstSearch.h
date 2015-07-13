@@ -3,12 +3,7 @@
 #include <deque>
 using namespace std;
 //Binary Tree Level Order Traversal 
-struct TreeNode {
-	int val;
-	TreeNode *left;
-	TreeNode *right;
-	TreeNode(int x) : val(x), left(NULL), right(NULL) {}	
-};
+extern struct TreeNode; 
 vector<vector<int>> vec;
 void buildVector(TreeNode *root, int depth)
 {
