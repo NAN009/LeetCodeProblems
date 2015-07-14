@@ -1,6 +1,7 @@
 #include <iostream>
 #include <vector>
 #include <stack>
+#include <algorithm>
 #include "Stack1.h"
 using namespace std;
 extern struct TreeNode;
@@ -139,4 +140,67 @@ bool isValidBST(TreeNode* root)
 			return false;
 	}
 	return true;
+}
+//Balanced Binary Tree 
+int treeDepth(TreeNode *root)
+{
+	if (nullptr == root)
+		return 0;
+	return max(treeDepth(root->left), treeDepth(root->right))+1;
+}
+bool isBalanced(TreeNode* root) 
+{	
+	if (nullptr == root)
+		return true;
+	int left = treeDepth(root->left), right = treeDepth(root->right);		
+	return abs(left-right)<=1&&isBalanced(root->left) && isBalanced(root->right);
+}
+int dfsHeight(TreeNode *root)
+{
+	if (nullptr == root)
+		return 0;
+	int leftHeight = dfsHeight(root->left);
+	if (-1 == leftHeight)
+		return -1;
+	int rightHeight = dfsHeight(root->right);
+	if (-1 == rightHeight)
+		return -1;
+	if (abs(leftHeight - rightHeight) > 1)
+		return -1;
+	return max(leftHeight, rightHeight) + 1;
+}
+bool isBalanced_leetcode(TreeNode *root)
+{
+	return dfsHeight(root) != -1;
+}
+//Symmetric Tree
+bool helper(TreeNode *p, TreeNode *q)
+{
+	if (!p&&!q)
+		return true;
+	else if (!p || !q)
+		return false;
+	if (p->val != q->val)
+		return false;
+	return helper(p->left, q->right) && helper(p->right, q->left);
+}
+bool isSymmetric(TreeNode* root)
+{
+	if (nullptr == root)
+		return true;
+	return helper(root->left, root->right);
+}
+//Convert Sorted Array to Binary Search Tree 
+TreeNode* sortedArrayToBST(vector<int>& nums) 
+{
+	if (nums.size() == 0)
+		return nullptr;
+
+	TreeNode *root(nullptr);
+	root->val = nums[nums.size() / 2];
+	int n = nums.size()/2;
+	while (n <nums.size())
+	{
+		root->right = new TreeNode(nums[nums.size() - n / 2]);
+	}
 }
