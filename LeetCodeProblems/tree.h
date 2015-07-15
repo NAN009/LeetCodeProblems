@@ -204,3 +204,55 @@ TreeNode* sortedArrayToBST(vector<int>& nums)
 		root->right = new TreeNode(nums[nums.size() - n / 2]);
 	}
 }
+//Path Sum 
+bool hasPathSum(TreeNode* root, int sum) 
+{
+	if (root->left == nullptr&&nullptr == root->right&&sum - root->val == 0)
+		return true;
+	if (nullptr == root)
+		return false;
+	return hasPathSum(root->left, sum - root->val) || hasPathSum(root->right, sum - root->val);
+}
+bool hasPathSumPostorder(TreeNode *root, int sum)
+{
+	stack<TreeNode *> s;
+	TreeNode *pre = nullptr, *cur = root;
+	int SUM = 0;
+	while (cur||!s.empty())
+	{
+		while (cur)
+		{
+			s.push(cur);
+			SUM+=cur->val;
+			cur = cur->left;
+		}
+		cur = s.top();
+		if (cur->left == nullptr&&cur->right == nullptr&&SUM == sum)
+			return true;
+		if (cur->right&&pre != cur->right)
+			cur = cur->right;
+		else
+		{
+			pre = cur;
+			s.pop();
+			SUM -= cur->val;
+			cur = nullptr;
+		}
+	}
+	return false;
+}
+//Minimum Depth of Binary Tree
+int minDepth(TreeNode* root) 
+{
+	if (nullptr == root)
+		return 0;
+	if (root->left == nullptr&&root->right == nullptr)
+		return 1;
+	else
+	{
+		int left = minDepth(root->left);
+		int right = minDepth(root->right);
+		int min = left > right ? right : left;
+		return  min == 0 ? max(left, right) + 1 : min + 1;
+	}
+}
