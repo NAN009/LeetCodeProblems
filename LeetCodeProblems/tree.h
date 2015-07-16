@@ -141,6 +141,45 @@ bool isValidBST(TreeNode* root)
 	}
 	return true;
 }
+bool isValidBST_leetcode(TreeNode *root)
+{
+	TreeNode *prev = nullptr;
+	return validate(root, prev);
+}
+bool validate(TreeNode *root, TreeNode *prev)
+{
+	if (root == nullptr)
+		return true;
+	if (!validate(root->left, prev))
+		return false;
+	if (prev != nullptr&&prev->val >= root->val)
+		return false;
+	prev = root;
+	return validate(root->right, prev);
+}
+bool isValidBST_inorder(TreeNode *root)
+{
+	stack<TreeNode *>stack;
+	TreeNode *cur = root;
+	TreeNode *pre = nullptr;
+	while (!stack.empty()||cur!=nullptr)
+	{
+		if (cur != nullptr)
+		{
+			stack.push(cur);
+			cur = cur->left;
+		}
+		else
+		{
+			TreeNode *p = stack.top();
+			if (pre != nullptr&&p->val <= pre->val)
+				return false;
+			pre = p;
+			cur = p->right;
+		}
+	}
+	return true;
+}
 //Balanced Binary Tree 
 int treeDepth(TreeNode *root)
 {
@@ -255,4 +294,30 @@ int minDepth(TreeNode* root)
 		int min = left > right ? right : left;
 		return  min == 0 ? max(left, right) + 1 : min + 1;
 	}
+}
+//Binary Tree Level Order Traversal 
+vector<vector<int>> levelOrder(TreeNode* root) 
+{
+	if (nullptr == root)
+		return vector<vector<int>>();
+	vector<vector<int>> result;
+	deque<TreeNode *>que;
+	que.push_back(root);
+	while (!que.empty())
+	{
+		int len = que.size();
+		vector<int> temp;
+		for (int i = 0; i < len;++i)
+		{
+			TreeNode *p = que.front();
+			que.pop_front();
+			temp.push_back(p->val);
+			if(p->left)
+			que.push_back(p->left);
+			if (p->right)
+				que.push_back(p->right);
+		}
+		result.push_back(temp);	
+	}
+	return result;
 }
