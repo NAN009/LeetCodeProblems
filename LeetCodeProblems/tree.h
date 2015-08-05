@@ -307,17 +307,162 @@ vector<vector<int>> levelOrder(TreeNode* root)
 	{
 		int len = que.size();
 		vector<int> temp;
-		for (int i = 0; i < len;++i)
+		for (int i = 0; i < len; ++i)
 		{
 			TreeNode *p = que.front();
 			que.pop_front();
 			temp.push_back(p->val);
-			if(p->left)
-			que.push_back(p->left);
+			if (p->left)
+				que.push_back(p->left);
 			if (p->right)
 				que.push_back(p->right);
 		}
-		result.push_back(temp);	
+		result.push_back(temp);
 	}
 	return result;
+}
+//Binary Tree Zigzag Level Order Traversal
+vector<vector<int>> zigzagLevelOrder(TreeNode* root)
+{
+	if (nullptr == root)
+		return vector<vector<int>>();
+	vector<vector<int>> result;
+	deque<TreeNode *>que;
+	que.push_back(root);
+	int depth = 0;
+	while (!que.empty())
+	{
+		int len = que.size();
+		vector<int> temp;
+		for (int i = 0; i < len; ++i)
+		{
+			TreeNode *p = que.front();
+			que.pop_front();
+			if (depth % 2 == 0)
+				temp.push_back(p->val);
+			else
+				temp.insert(temp.begin(), p->val);
+			if (p->left)
+				que.push_back(p->left);
+			if (p->right)
+				que.push_back(p->right);
+		}
+		depth++;
+		result.push_back(temp);
+	}
+	return result;
+}
+//Populating Next Right Pointers in Each Node 
+struct TreeLinkNode {
+	int val;
+	TreeLinkNode *left;
+	TreeLinkNode *right;
+	TreeLinkNode *next;
+	TreeLinkNode(int x) : val(x), left(NULL), right(NULL), next(NULL) {}
+};
+void connect(TreeLinkNode *root) 
+{
+	if (nullptr == root)
+		return;
+	root->next = nullptr;
+	while (root->left)
+	{
+		TreeLinkNode *p = root->left;
+		p->next = root->right;
+	}
+}
+//Binary Tree Right Side View
+vector<int> rightSideView(TreeNode* root) 
+{
+	vector<int> vec;
+	if (nullptr == root)
+		return vec;
+	deque<TreeNode*> que;
+	que.push_back(root);
+	vec.push_back(root->val);
+	while (!que.empty())
+	{
+		int n = que.size();
+		for (int i = 0; i < n;++i)
+		{
+			TreeNode *p = que.front();
+			que.pop_front();
+			if (p->left)
+				que.push_back(p->left);
+			if (p->right)
+				que.push_back(p->right);	
+			if (i == n - 1&&!que.empty())
+			{
+				TreeNode *q = que.back();
+				vec.push_back(q->val);
+			}
+		}		
+	}
+	return vec;
+}
+//Number of Islands 
+int numIslands(vector<vector<char>>& grid) 
+{
+	if (grid.empty())
+		return 0;
+	int count = 0,rows=grid.size(),cols=grid[0].size();
+	if (grid[0][0] == '1')
+	{
+		if (grid[1][0] && grid[1][0] == '0')
+		{
+			if (grid[0][1] && grid[0][1] == '0')
+				count++;
+			if (!grid[0][1])
+				count++;
+		}
+		if (!grid[1][0])
+		{
+			if (grid[0][1] && grid[0][1] == '0')
+				count++;
+			if (!grid[0][1])
+				count++;
+		}
+	}
+	for (int i = 1; i < rows;++i)
+	{
+		if (grid[i][0] == '1'&&grid[i - 1][0] == '0'&&grid[i + 1][0] == '0')
+		{
+			if (grid[i][1] && grid[i][1] == '0')
+				count++;
+			if (!grid[i][1])
+				count++;
+		}	
+	}
+	if (rows - 1 != 0)
+	for (int i = 1; i < rows; ++i)
+	{	
+		if (grid[i][cols - 1] == '1'&&grid[i - 1][cols - 1] == '0'&&grid[i + 1][cols - 1] == '0'&&grid[i][cols - 2] == '0')
+				count++;
+	}
+	for (int i = 1; i < cols; ++i)
+	{
+		if (grid[0][i] == '1'&&grid[0][i-1] == '0'&&grid[0][i+1] == '0')
+		{
+			if (grid[1][i] && grid[1][i] == '0')
+				count++;
+			if (!grid[1][i])
+				count++;
+		}
+	}
+	if (cols - 1 != 0)
+	for (int i = 1; i < cols; ++i)
+	{
+		if (grid[rows-1][i] == '1'&&grid[rows-1][i-1] == '0'&&grid[rows-1][i+1] == '0'&&grid[rows-2][i] == '0')
+			count++;
+	}
+	for (int i = 0; i < rows-1; ++i)
+	{
+		for (int j = 0; j < cols-1; ++j)
+		{
+			if (grid[i][j] == '1'&&grid[i - 1][j] == '0'&&grid[i + 1][j] == '0'&&
+				grid[i][j - 1] == '0'&&grid[i - 1][j + 1] == '0')
+				count++;
+		}
+	}
+	return count;
 }
