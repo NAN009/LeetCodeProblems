@@ -83,10 +83,45 @@ int atoi_Offer(const char* str)
 			str++;
 			minus = true;
 		}
-		if (*str!='\0')
-			num=
-
-
+		if (*str != '\0')
+			num = strToIntCore(str, minus);		
 	}
-	
+	return (int)num;
+}
+int myAtoi(string str)
+{	
+	if (str.empty())
+		return 0;
+	if (str[0] == '\0')
+		return 0;
+	bool ispositive = true;
+ 	long long num = 0,i,begin=-1;
+	for (i = 0; i < str.size(); ++i)
+	{
+		if (str[i] == ' ')
+		{
+			if (begin + 1 != i)
+				break;
+			begin = i;
+			continue;
+		}		
+		if (i==begin+1&&(str[i] == '+' || str[i] == '-'))
+		{
+			if (str[i] == '-')
+				ispositive = false;
+			continue;
+		}
+		if (str[i] >= '0'&&str[i] <= '9')
+		{
+			int flag = ispositive ? 1 : -1;
+			num = num * 10 + flag*(str[i] - '0');
+			if (num > INT_MAX)
+				return INT_MAX;
+			if (num < INT_MIN)
+				return INT_MIN;
+		}	
+		else
+			break;
+	}
+	return (int)num;
 }

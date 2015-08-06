@@ -9,6 +9,7 @@
 #include "array.h"
 #include "DynamicProgramming.h"
 #include "backtracking.h"
+#include "string_leetcode.h"
 using namespace std;
 //Ë³Ê±ÕëÐý×ª90¶È Rotate Image
 void retate(vector<vector<int> > &matrix)
@@ -1725,7 +1726,8 @@ int main()
 	int num ,m=3,n=3;
 	vector<int>matrix1 = { 1,2,3};
 	vector<vector<int>>matrix2 = { { 2 }, { 3, 4 }, { 6, 5, 7 }, {4,1,8,3} };
-	matrix2 = permute_leetcode1(matrix1);
+	string s = "   -0012  42";
+	cout << myAtoi(s) << endl;
 
 	
 	//int a[2] = {2,1};
