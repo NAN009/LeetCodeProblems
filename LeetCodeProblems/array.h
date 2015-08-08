@@ -31,6 +31,24 @@ bool searchMatrix(vector<vector<int>>& matrix, int target)
 	}
 	return false;
 }
+//Search a 2D Matrix II
+bool searchMatrixII(vector<vector<int>>& matrix, int target) 
+{
+	if (matrix.empty())
+		return false;
+	int rows = matrix.size(), cols = matrix[0].size(),i,j;
+	i = 0; j = cols - 1;
+	while (i < rows&&j >= 0)
+	{
+		if (matrix[i][j] == target)
+			return true;
+		else if (matrix[i][j]>target)
+			--j;
+		else
+			++i;
+	}
+	return false;
+}
 //Search in Rotated Sorted Array
 int search(vector<int>& nums, int target) 
 {

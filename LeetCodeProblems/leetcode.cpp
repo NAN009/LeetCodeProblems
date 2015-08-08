@@ -1726,9 +1726,9 @@ int main()
 	int num ,m=3,n=3;
 	vector<int>matrix1 = { 1,2,3};
 	vector<vector<int>>matrix2 = { { 2 }, { 3, 4 }, { 6, 5, 7 }, {4,1,8,3} };
-	string s = "   -0012  42";
-	cout << myAtoi(s) << endl;
+	string s = ")(",s1="bab",s2="adab";
 
+	cout << isValid(s) << endl;
 	
 	//int a[2] = {2,1};
 	//ListNode prehead(0),*p=&prehead;

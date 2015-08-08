@@ -1,5 +1,6 @@
 #include <iostream>
 #include <vector>
+#include <stack>
 using namespace std;
 //Restore IP Addresses
 vector<string> restoreIpAddresses(string s) 
@@ -124,4 +125,35 @@ int myAtoi(string str)
 			break;
 	}
 	return (int)num;
+}
+//Distinct Subsequences 
+
+//Valid Parentheses
+bool isValid(string s) 
+{
+	stack<char> sta;
+	if (s.empty())
+		return true;
+	for (int i = 0; i < s.size();++i)
+	{
+		if (s[i]=='('||s[i]=='['||s[i]=='{')
+		{
+			sta.push(s[i]);
+		}
+		if (s[i] == ')' || s[i] == ']' || s[i] == '}')
+		{
+			if (i == 0)
+				return false;
+			char c = sta.top();
+			if (s[i] == ')'&&c != '(')
+				return false;
+			if (s[i] == ']'&&c != '[')
+				return false;
+			if (s[i] == '}'&&c != '{')
+				return false;
+			sta.push(s[i]);
+		}
+		
+	}
+	return true;
 }
