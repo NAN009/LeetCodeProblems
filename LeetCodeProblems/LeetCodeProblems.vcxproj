@@ -69,6 +69,7 @@
   <ItemGroup>
     <ClInclude Include="array.h" />
     <ClInclude Include="backtracking.h" />
+    <ClInclude Include="Bit Manipulation.h" />
     <ClInclude Include="breadthFirstSearch.h" />
     <ClInclude Include="DynamicProgramming.h" />
     <ClInclude Include="LinkedLIst.h" />

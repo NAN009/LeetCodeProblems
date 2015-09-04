@@ -10,6 +10,7 @@
 #include "DynamicProgramming.h"
 #include "backtracking.h"
 #include "string_leetcode.h"
+#include "Bit Manipulation.h"
 using namespace std;
 //Ë³Ê±ÕëÐý×ª90¶È Rotate Image
 void retate(vector<vector<int> > &matrix)
@@ -1728,7 +1729,7 @@ int main()
 	vector<vector<int>>matrix2 = { { 2 }, { 3, 4 }, { 6, 5, 7 }, {4,1,8,3} };
 	string s = ")(",s1="bab",s2="adab";
 
-	cout << isValid(s) << endl;
+	cout << missingNumber(matrix1) << endl;
 	
 	//int a[2] = {2,1};
 	//ListNode prehead(0),*p=&prehead;
