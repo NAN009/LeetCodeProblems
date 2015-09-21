@@ -47,5 +47,11 @@
     <ClInclude Include="Bit Manipulation.h">
       <Filter>头文件</Filter>
     </ClInclude>
+    <ClInclude Include="leetcode经典算法.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="hashtable.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

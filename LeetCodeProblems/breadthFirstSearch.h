@@ -4,7 +4,7 @@
 using namespace std;
 //Binary Tree Level Order Traversal 
 extern struct TreeNode; 
-vector<vector<int>> vec;
+//vector<vector<int>> vec;
 void buildVector(TreeNode *root, int depth)
 {
 	if (root == NULL)

@@ -72,6 +72,8 @@
     <ClInclude Include="Bit Manipulation.h" />
     <ClInclude Include="breadthFirstSearch.h" />
     <ClInclude Include="DynamicProgramming.h" />
+    <ClInclude Include="hashtable.h" />
+    <ClInclude Include="leetcode经典算法.h" />
     <ClInclude Include="LinkedLIst.h" />
     <ClInclude Include="Stack1.h" />
     <ClInclude Include="string_leetcode.h" />

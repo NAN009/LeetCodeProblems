@@ -11,6 +11,7 @@
 #include "backtracking.h"
 #include "string_leetcode.h"
 #include "Bit Manipulation.h"
+#include "hashtable.h"
 using namespace std;
 //Ë³Ê±ÕëÐý×ª90¶È Rotate Image
 void retate(vector<vector<int> > &matrix)
@@ -693,7 +694,7 @@ bool isPalindrome(int x)
 	return true;
 }
 //Add Binary 
-string addBinary(string a, string b)
+string addBinary1(string a, string b)
 {
 	int len_a = a.size(), len_b = b.size();
 	if (len_a > len_b)
@@ -1727,9 +1728,9 @@ int main()
 	int num ,m=3,n=3;
 	vector<int>matrix1 = { 1,2,3};
 	vector<vector<int>>matrix2 = { { 2 }, { 3, 4 }, { 6, 5, 7 }, {4,1,8,3} };
-	string s = ")(",s1="bab",s2="adab";
+	string s = ")(",s1="a",s2="ab";
 
-	cout << missingNumber(matrix1) << endl;
+	cout <<isAnagram (s1,s2) << endl;
 	
 	//int a[2] = {2,1};
 	//ListNode prehead(0),*p=&prehead;
